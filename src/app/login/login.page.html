@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="skeleton-titulo">
+      SkeletonAPP
+    </ion-title>
+    <ion-card-subtitle class="subtitulo">
+      Aqui comenzo todo
+    </ion-card-subtitle>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="card-title">Bienvenido!</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="formularioLogin" (ngSubmit)="guardarDatos()">
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input formControlName="nombre" placeholder="Ingrese nombre"></ion-input>
+          </ion-item>
+          <ion-label color="danger" *ngIf="formularioLogin.controls.nombre.errors?.['required'] && (formularioLogin.controls.nombre.touched || formularioLogin.controls.nombre.dirty)">* El nombre es obligatorio </ion-label>
+          <ion-label color="danger" *ngIf="formularioLogin.controls.nombre.errors?.['minlength'] && (formularioLogin.controls.nombre.touched || formularioLogin.controls.nombre.dirty)">* El nombre tiene que tener al menos 3 caracteres.</ion-label>
+          <ion-label color="danger" *ngIf="formularioLogin.controls.nombre.errors?.['maxlength'] && (formularioLogin.controls.nombre.touched || formularioLogin.controls.nombre.dirty)">* El nombre tiene que tener maximo 8 caracteres.</ion-label>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="contrasenia" placeholder="Ingrese contraseña"></ion-input>
+          </ion-item>
+        </form>
+        <br>
+        <ion-button type="submit" [disabled]="!formularioLogin.valid" shape="round" class="botonIngresar">
+          Ingresar
+        </ion-button>
+        <ion-button class="botonRegistrarse" shape="round" [routerLink]="['/registro']">
+          Crea tu cuenta gratis
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
