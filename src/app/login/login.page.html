@@ -6,13 +6,15 @@
     <ion-card-subtitle class="subtitulo">
       Aqui comenzo todo
     </ion-card-subtitle>
+      <ion-back-button defaultHref="/home" slot="start"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
   <ion-content>
     <ion-card>
       <ion-card-header>
-        <ion-card-title class="card-title">Bienvenido!</ion-card-title>
+        <ion-card-title class="card-title">Bienvenido!</ion-card-title> <!--Falta: Limpiar campo, investigar el ngSubmit¿Que hace?,
+        contraseña solo numerica,-->
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="formularioLogin" (ngSubmit)="guardarDatos()">
@@ -27,9 +29,12 @@
             <ion-label position="floating">Password</ion-label>
             <ion-input type="password" formControlName="contrasenia" placeholder="Ingrese contraseña"></ion-input>
           </ion-item>
+          <ion-label color="danger" *ngIf="formularioLogin.controls.contrasenia.errors?.['required'] && (formularioLogin.controls.contrasenia.touched || formularioLogin.controls.contrasenia.dirty)">* La contraseña es obligatoria</ion-label>
+          <ion-label color="danger" *ngIf="formularioLogin.controls.contrasenia.errors?.['minlength'] && (formularioLogin.controls.contrasenia.touched || formularioLogin.controls.contrasenia.dirty)">* La contraseña debe ser de 4 caracteres</ion-label>
+          <ion-label color="danger" *ngIf="formularioLogin.controls.contrasenia.errors?.['maxlength'] && (formularioLogin.controls.contrasenia.touched || formularioLogin.controls.contrasenia.dirty)">* La contraseña debe ser de 4 caracteres</ion-label>
         </form>
         <br>
-        <ion-button type="submit" [disabled]="!formularioLogin.valid" shape="round" class="botonIngresar">
+        <ion-button (click)="guardarDatos() ; goToHome()" type="submit" [disabled]="!formularioLogin.valid" shape="round" class="botonIngresar">
           Ingresar
         </ion-button>
         <ion-button class="botonRegistrarse" shape="round" [routerLink]="['/registro']">
